@@ -48,6 +48,7 @@ wsdl\ListOfCountryNamesGroupedByContinent.class
 wsdl\ArrayOftCountryCodeAndNameGroupedByContinent.class
 wsdl\CountryIntPhoneCode.class
 wsdl\CountryISOCode.class
+MainClass.class
 wsdl\LanguageISOCodeResponse.class
 wsdl\LanguageISOCode.class
 wsdl\TCurrency.class

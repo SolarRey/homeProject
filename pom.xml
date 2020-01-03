@@ -36,9 +36,6 @@
             </exclusions>
         </dependency>
 
-
-
-        <!-- https://mvnrepository.com/artifact/javax.xml.bind/jaxb-api -->
         <dependency>
             <groupId>javax.xml.bind</groupId>
             <artifactId>jaxb-api</artifactId>
@@ -46,15 +43,12 @@
         </dependency>
 
 
-        <!-- https://mvnrepository.com/artifact/javax.activation/activation -->
         <dependency>
             <groupId>javax.activation</groupId>
             <artifactId>activation</artifactId>
             <version>1.1</version>
         </dependency>
 
-        <!-- https://mvnrepository.com/artifact/org.glassfish.jaxb/jaxb-runtime -->
-        <!-- https://mvnrepository.com/artifact/org.glassfish.jaxb/jaxb-runtime -->
         <dependency>
             <groupId>org.glassfish.jaxb</groupId>
             <artifactId>jaxb-runtime</artifactId>
@@ -67,6 +61,31 @@
             <version>6.14.3</version>
             <scope>test</scope>
         </dependency>
+        <dependency>
+            <groupId>commons-httpclient</groupId>
+            <artifactId>commons-httpclient</artifactId>
+            <version>3.1</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.apache.poi</groupId>
+            <artifactId>poi</artifactId>
+            <version>4.1.1</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.apache.poi</groupId>
+            <artifactId>poi-ooxml</artifactId>
+            <version>4.1.1</version>
+        </dependency>
+
+        <dependency>
+            <groupId>com.h2database</groupId>
+            <artifactId>h2</artifactId>
+            <version>1.4.200</version>
+            <scope>test</scope>
+        </dependency>
+
 
     </dependencies>
 
@@ -76,16 +95,6 @@
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
             </plugin>
-
-
-            <!--Хороший для генерации WSDL, с нерабочим сервисом-->
-            <!--http://wsf.cdyne.com/WeatherWS/Weather.asmx?WSDL-->
-
-            <!--Рабочий но непонятный сервис, из котоорого не генерятся классы.-->
-            <!--http://www.weather.gov/forecasts/xml/DWMLgen/wsdl/ndfdXML.wsdl-->
-
-            <!--Центробанковский WSDL, из которого тоже не генерятся классы-->
-            <!--https://www.cbr.ru/CreditInfoWebServ/CreditOrgInfo.asmx?WSDL-->
 
             <plugin>
                 <groupId>org.jvnet.jaxb2.maven2</groupId>

@@ -1,8 +1,10 @@
 package soap;
 
+import org.apache.commons.httpclient.UsernamePasswordCredentials;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.oxm.jaxb.Jaxb2Marshaller;
+import org.springframework.ws.transport.http.HttpComponentsMessageSender;
 
 @Configuration
 public class CheckerConfiguration {
