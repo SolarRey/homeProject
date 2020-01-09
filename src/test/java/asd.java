@@ -1,9 +1,17 @@
+import org.apache.poi.xssf.usermodel.XSSFSheet;
+import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.testng.Assert;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Factory;
 import org.testng.annotations.Test;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.sql.*;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 public class asd {
 
@@ -48,5 +56,36 @@ public class asd {
     }
 
 
+    @Test
+    public void firstTestMap() throws IOException, SQLException {
+        File file = new File("G:/try.xlsx");
+        FileInputStream fis = new FileInputStream(file);
+        XSSFWorkbook workbook = new XSSFWorkbook(fis);
+        XSSFSheet sheet = workbook.getSheetAt(0);
 
+        HashMap<String, ArrayList<String>> map = new HashMap<>();
+        ArrayList<String> list = new ArrayList<String>();
+        for (int i = 0; i < sheet.getPhysicalNumberOfRows(); i++) {
+             list.add(sheet.getRow(i).getCell(0).getStringCellValue());
+        }
+        map.put("1",list);
+
+
+
+        String url = "jdbc:h2:mem:";
+
+        Connection con = DriverManager.getConnection(url);
+        Statement stm = con.createStatement();
+        stm.executeUpdate("CREATE TABLE CUSTOMER (name varchar(20));");
+
+        for (int i = 0; i < list.size(); i++) {
+            stm.executeUpdate(
+                    "INSERT into CUSTOMER values ('"+list.get(i)+"');");
+        }
+        ResultSet rs = stm.executeQuery("SELECT * from CUSTOMER");
+        while (rs.next()) {
+            System.out.println(rs.getString(1));
+        }
+
+    }
 }
