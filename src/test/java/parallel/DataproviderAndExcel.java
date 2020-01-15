@@ -2,6 +2,7 @@ package parallel;
 
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.poi.ss.usermodel.Row;
+import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
@@ -14,7 +15,9 @@ public class DataproviderAndExcel {
     int q = 0, i = 0;
     private XSSFWorkbook workbookFis;
     private Workbook workbookFos;
-    private XSSFSheet sheet;
+    private XSSFSheet sheetIn;
+    private Sheet sheetOut;
+    private FileOutputStream fos;
 
     @BeforeClass
     public void createExcel() throws IOException {
@@ -23,19 +26,21 @@ public class DataproviderAndExcel {
         workbookFis = new XSSFWorkbook(fis);
 
         File fileOut = new File("G:/excel/tryOut.xlsx");
-        FileOutputStream fos = new FileOutputStream(fileOut);
-        workbookFos = new HSSFWorkbook();
-        workbookFos.createSheet("123");
+        fos = new FileOutputStream(fileOut);
+        workbookFos = new XSSFWorkbook();
+        sheetOut=workbookFos.createSheet("1");
+
     }
 
 
-    @DataProvider(name = "qwerty", parallel = false)
+    @DataProvider(name = "qwerty", parallel = true)
     public Iterator<Object[]> createDataforTestExcel() throws IOException {
         XSSFSheet sheet = workbookFis.getSheetAt(0);
         Map<Integer, Row> map = new HashMap<>();
         for (int i = 0; i < sheet.getPhysicalNumberOfRows(); i++) {
             map.put(i, sheet.getRow(i));
         }
+        workbookFis.close();
         List<Object[]> list = new ArrayList<Object[]>();
         for (int i = 0; i < sheet.getPhysicalNumberOfRows(); i++) {
             list.add(new Object[]{map.get(i)});
@@ -46,31 +51,14 @@ public class DataproviderAndExcel {
 
     @Test(dataProvider = "qwerty")
 //    @Test
-    public void soutDataForRequest(Row map) throws IOException {
-        System.out.println(map.getCell(0));
+    public synchronized void soutDataForRequest(Row map) throws IOException {
+//        System.out.println(map.getCell(0));
+//        System.out.println(map.getRowNum());
+        sheetOut.createRow(map.getRowNum()).createCell(0).setCellValue(map.getCell(0).getStringCellValue());
     }
 
-
-    @DataProvider(name = "Passing List Of Maps", parallel = true)
-    public Iterator<Object[]> createDataforTest3() {
-        XSSFSheet sheet = workbookFis.getSheetAt(0);
-        Map<Integer, Row> map = new HashMap<>();
-        for (int i = 0; i < sheet.getPhysicalNumberOfRows(); i++) {
-            map.put(i, sheet.getRow(i));
-        }
-        List<Object[]> list = new ArrayList<Object[]>();
-        for (int i = 0; i < sheet.getPhysicalNumberOfRows(); i++) {
-            list.add(new Object[]{map.get(i)});
-        }
-        return list.iterator();
-
+    @AfterClass
+    public void closeExcel() throws IOException {
+        workbookFos.write(fos);
     }
-
-    @Test(dataProvider = "Passing List Of Maps")
-    public synchronized void test1(Row map) {
-
-        System.out.println(map.getCell(0));
-    }
-
-
 }
