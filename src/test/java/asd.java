@@ -2,15 +2,14 @@ import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.testng.Assert;
 import org.testng.annotations.DataProvider;
-import org.testng.annotations.Factory;
 import org.testng.annotations.Test;
 
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.sql.*;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 
 public class asd {
@@ -50,9 +49,12 @@ public class asd {
 
     }
 
+
     @Test
-    public void firstT12estPar() {
-        System.out.println(32 * 32);
+    public void firstT12estPar(){
+        String [] [] str=null;
+        str=new String[Integer.parseInt("1")][Integer.parseInt("4")];
+        System.out.println(Arrays.deepToString(str));
     }
 
 
@@ -88,4 +90,4 @@ public class asd {
         }
 
     }
-}
+} 

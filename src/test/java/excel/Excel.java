@@ -1,14 +1,13 @@
 package excel;
 
-import com.sun.xml.bind.v2.runtime.reflect.opt.FieldAccessor_Long;
-import org.apache.poi.hssf.usermodel.HSSFWorkbook;
+
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.testng.annotations.Test;
 
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.util.ArrayList;
 
 public class Excel {
 
@@ -17,5 +16,9 @@ public class Excel {
         File file=new File("G:/try.xlsx");
         FileInputStream fis=new FileInputStream(file);
         XSSFWorkbook workbook=new XSSFWorkbook(fis);
+        ArrayList <String> list  =new ArrayList<>();
+        for (int i=0;i<workbook.getSheetAt(0).getPhysicalNumberOfRows();i++) {
+            list.add(workbook.getSheetAt(0).getRow(i).getCell(0).getStringCellValue());
+        }
     }
 }
