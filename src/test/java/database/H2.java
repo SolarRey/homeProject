@@ -16,7 +16,6 @@ public class H2 {
         ResultSet rs = stm.executeQuery("SELECT 1+1");
 
         if (rs.next()) {
-
             System.out.println(rs.getInt(1));
         }
     }

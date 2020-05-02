@@ -1,16 +1,23 @@
 import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.testng.Assert;
+import org.testng.ITestResult;
+import org.testng.annotations.AfterMethod;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 
+
+import javax.xml.datatype.DatatypeConfigurationException;
+import javax.xml.datatype.DatatypeFactory;
+import javax.xml.datatype.XMLGregorianCalendar;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.sql.*;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashMap;
+import java.time.LocalDate;
+import java.util.*;
+
+
 
 public class asd {
 
@@ -18,6 +25,18 @@ public class asd {
 
     public static void checkSumStep(int num1, int num2, int expectedSum) {
         Assert.assertTrue(num1 + num2 == expectedSum, "Сумма слагаемых не соответствует ожидаемому значению");
+    }
+
+    @Test
+    void xmlGregorian() throws DatatypeConfigurationException {
+        LocalDate date =LocalDate.now();
+        XMLGregorianCalendar xmlCal = DatatypeFactory.newInstance().newXMLGregorianCalendar();
+        xmlCal.setYear(date.getYear());
+        xmlCal.setMonth(date.getMonthValue());
+        xmlCal.setDay(date.getDayOfMonth());
+        xmlCal.setTimezone(180);
+        System.out.println(xmlCal);
+
     }
 
 
@@ -57,6 +76,11 @@ public class asd {
         System.out.println(Arrays.deepToString(str));
     }
 
+    @AfterMethod(alwaysRun = true)
+    void ada (ITestResult iTestResult){
+        System.out.println(iTestResult.getStartMillis()-iTestResult.getEndMillis());
+    }
+
 
     @Test
     public void firstTestMap() throws IOException, SQLException {
@@ -90,4 +114,5 @@ public class asd {
         }
 
     }
+    
 } 

@@ -15,9 +15,6 @@ public class Application {
 
         CapitalCityResponse response = checker.add("ISO 3166-2:AF");
         checker.printResponse(response);
-
-
-
     }
 
 

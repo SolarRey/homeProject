@@ -28,7 +28,7 @@ public class DataproviderAndExcel {
         File fileOut = new File("G:/excel/tryOut.xlsx");
         fos = new FileOutputStream(fileOut);
         workbookFos = new XSSFWorkbook();
-        sheetOut=workbookFos.createSheet("1");
+        sheetOut = workbookFos.createSheet("1");
 
     }
 
@@ -50,11 +50,12 @@ public class DataproviderAndExcel {
 
 
     @Test(dataProvider = "qwerty")
-//    @Test
-    public synchronized void soutDataForRequest(Row map) throws IOException {
-//        System.out.println(map.getCell(0));
-//        System.out.println(map.getRowNum());
+    public synchronized void soutDataForRequest(Row map) throws IOException, InterruptedException {
+        long startTime = System.currentTimeMillis();
+        Thread.sleep(1025);
+        long estimatedTime = System.currentTimeMillis() - startTime;
         sheetOut.createRow(map.getRowNum()).createCell(0).setCellValue(map.getCell(0).getStringCellValue());
+        sheetOut.getRow(map.getRowNum()).createCell(1).setCellValue(estimatedTime);
     }
 
     @AfterClass
